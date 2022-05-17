@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- run the simulation: manager-inetic-gui-->
+  <include file="$(find very_simple_robot_simulator)/launch/minimal_simulator_py.launch" />
+  <include file="$(find very_simple_robot_simulator)/launch/openni_simulator_py.launch" />
+  <include file="$(find very_simple_robot_simulator)/launch/lidar_simulator_py.launch" />
+  <include file="$(find very_simple_robot_simulator)/launch/world_state.launch" />
+  <!-- run PID controler node-->
+  <node name="ang_ctrl" pkg="pid" type="controller" ns="robot_ang">
+    <param name="Kp" value= "1" />
+    <param name="Ki" value="0.5" />
+    <param name="Kd" value="0" />
+    <param name="upper_limit" value="5" />
+    <param name="lower_limit" value="-5" />
+    <param name="angle_error" value="true" />
+    <param name="angle_wrap" value="2*3.14159" />
+  </node>
+  <!-- run node ang controler-->
+  <node pkg="very_simple_robot_simulator" name="zanahoria_final" type="zanahoria_final.py"  output="screen"/>
+  
+</launch>
